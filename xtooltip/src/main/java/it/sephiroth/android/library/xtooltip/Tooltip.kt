@@ -306,7 +306,8 @@ class Tooltip private constructor(private val context: Context, builder: Builder
                     LayoutInflater.from(context).inflate(mTooltipLayoutIdRes, viewContainer, false)
 
             if (!mIsCustomView) {
-                mTextView = AppCompatTextView(ContextThemeWrapper(context, mTextStyleResId))
+                mTextView = AppCompatTextView(context, null, mTextStyleResId)
+//                mTextView = AppCompatTextView(ContextThemeWrapper(context, mTextStyleResId))
                 mTextView.id = android.R.id.text1
                 (contentView as ViewGroup).addView(mTextView)
             }
@@ -858,12 +859,11 @@ class Tooltip private constructor(private val context: Context, builder: Builder
 
         fun styleId(@StyleRes styleId: Int?): Builder {
             styleId?.let {
-                this.defStyleAttr = 0
                 this.defStyleRes = it
             } ?: run {
                 this.defStyleRes = R.style.ToolTipLayoutDefaultStyle
-                this.defStyleAttr = R.attr.ttlm_defaultStyle
             }
+            this.defStyleAttr = R.attr.ttlm_defaultStyle
             return this
         }
 
